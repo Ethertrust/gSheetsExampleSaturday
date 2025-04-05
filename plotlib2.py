@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from matplotlib.patches import ConnectionPatch
+import functools
+import matplotlib.animation as animation
 
 # make figure and assign axis objects
 fig, axs = plt.subplots(4, 3, figsize=(15, 9))
@@ -122,8 +124,40 @@ Z = np.sin(R)
 
 surf = axbig.plot_surface(X, Y, Z, rstride=1, cstride=1,
                        linewidth=0, antialiased=False)
-axbig.set_zlim(-1, 1)
+axbig.set_zlim(-3, 1)
 
+for ax in axs[3:, 1:].flatten():
+    ax.remove()
+axbig2 = fig.add_subplot(gs[3:, 1:])
+# Setting up a random number generator with a fixed state for reproducibility.
+rng = np.random.default_rng(seed=19680801)
+# print(rng)
+# Fixing bin edges.
+HIST_BINS = np.linspace(-4, 4, 100)
+# print(HIST_BINS)
+# Histogram our data with numpy.
+data = rng.standard_normal(1000)
+# print(data)
+# n, _ = np.histogram(data, HIST_BINS)
+# print(n)
+def animate(frame_number, bar_container):
+    # Simulate new data coming in.
+    data = rng.standard_normal(1000)
+    n, _ = np.histogram(data, HIST_BINS)
+    print(n)
+    for count, rect in zip(n, bar_container.patches):
+        rect.set_height(count)
+
+    return bar_container.patches
+
+# Output generated via `matplotlib.animation.Animation.to_jshtml`.
+_, _, bar_container = axbig2.hist(data, HIST_BINS, lw=1,
+                              color="blue", fc="green", alpha=0.5)
+# print(bar_container)
+axbig2.set_ylim(top=55)  # set safe limit to ensure that all data is visible.
+
+anim = functools.partial(animate, bar_container=bar_container)
+ani = animation.FuncAnimation(fig, anim, 50, repeat=True, blit=True)
 # fig.tight_layout()
 fig.savefig("test.png")
 plt.show()
