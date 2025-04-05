@@ -103,6 +103,27 @@ axs[3,0].plot(t, s3)
 axs[3,0].set_yticks(np.arange(-0.9, 1.0, 0.4))
 axs[3,0].set_ylim(-1, 1)
 # axs[3,0].sharex(axs[0,0])
+gs = axs[1, 2].get_gridspec()
+# remove the underlying Axes
+print(axs[1:-1, 1:])
+print(axs[1:-1, 1:].flatten())
+for ax in axs[1:-1, 1:].flatten():
+    ax.remove()
+axbig = fig.add_subplot(gs[1:-1, 1:], projection='3d')
+X = np.arange(-5, 5, 0.25)
+Y = np.arange(-5, 5, 0.25)
+# print(X)
+# print(Y)
+X, Y = np.meshgrid(X, Y)
+# print(X, Y)
+R = np.sqrt(X**2 + Y**2)
+Z = np.sin(R)
+# print(Z)
 
+surf = axbig.plot_surface(X, Y, Z, rstride=1, cstride=1,
+                       linewidth=0, antialiased=False)
+axbig.set_zlim(-1, 1)
+
+# fig.tight_layout()
 fig.savefig("test.png")
 plt.show()
