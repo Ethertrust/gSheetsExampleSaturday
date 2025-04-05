@@ -30,7 +30,7 @@ print(df["income"].median())
 print(df["income"].mean())
 print("mean-median", df["income"].mean() - df["income"].median(), ((df["income"].mean() - df["income"].median())/df["income"].max())*100)
 
-df["class"] = pd.cut(df["income"], 3, labels = ["low", "middle", "rich"])
+df["class"] = pd.cut(df["income"], np.array([0, 0.1, 0.4, 1])*df["income"].max(), labels = ["low", "middle", "rich"])
 df["expenses"] = pd.cut(df["price"], 3, labels = ["low", "middle", "high"])
 print(df.loc[:,["mode", "price", "income", "class", "expenses"]])
 rich = df["class"] == 'rich'
