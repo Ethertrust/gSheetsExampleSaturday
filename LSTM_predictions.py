@@ -34,7 +34,7 @@ model_lstm.add(LSTM(50, return_sequences=True, input_shape=(look_back, 1)))
 model_lstm.add(LSTM(50))
 model_lstm.add(Dense(1))
 model_lstm.compile(loss='mean_squared_error', optimizer='adam')
-model_lstm.fit(X, y, epochs=20, batch_size=1, verbose=1)
+model_lstm.fit(X, y, epochs=10, batch_size=1, verbose=1)
 
 # Прогнозирование
 inputs = scaled_data[-look_back:]
