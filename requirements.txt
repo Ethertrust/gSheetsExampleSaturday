@@ -6,3 +6,6 @@ matplotlib
 scipy
 statsmodels
 scikit-learn
+prophet
+tensorflow>=2.4.0
+xgboost
