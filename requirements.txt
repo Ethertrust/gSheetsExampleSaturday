@@ -9,3 +9,5 @@ scikit-learn
 prophet
 tensorflow>=2.4.0
 xgboost
+asyncpg
+python-decouple
