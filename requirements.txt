@@ -1,13 +1,4 @@
-gspread
-numpy
 pandas
-openpyxl
-matplotlib
-scipy
-statsmodels
-scikit-learn
-prophet
-tensorflow>=2.4.0
-xgboost
-asyncpg
-python-decouple
+requests
+selenium
+beautifulsoup4
