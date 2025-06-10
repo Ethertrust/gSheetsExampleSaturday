@@ -5,11 +5,11 @@ from decouple import config
 
 async def insert_psql(text:str):
     conn = await asyncpg.connect(
-        user=config("user"),
-        password=config("password"),
-        database=config("database"),
-        host=config("host"),
-        port=config("port")
+        user=config("user_pg"),
+        password=config("password_pg"),
+        database=config("database_pg"),
+        host=config("host_pg"),
+        port=config("port_pg")
     )
 
     rows = await conn.fetch(text)
@@ -18,7 +18,6 @@ async def insert_psql(text:str):
     #     print(row)
     await conn.close()
     return rows
-
 
 async def ins_pizzeria(pizzeria_name):
     df = await insert_psql(f"insert into pizzeria values (default ,'{pizzeria_name}', 5.0)")

@@ -5,11 +5,11 @@ from decouple import config
 
 async def read_psql(text:str):
     conn = await asyncpg.connect(
-        user=config("user"),
-        password=config("password"),
-        database=config("database"),
-        host=config("host"),
-        port=config("port")
+        user=config("user_pg"),
+        password=config("password_pg"),
+        database=config("database_pg"),
+        host=config("host_pg"),
+        port=config("port_pg")
     )
 
     rows = await conn.fetch(text)
